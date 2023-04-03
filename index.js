@@ -11,6 +11,7 @@ app = express();
 const server = http.createServer(app).listen(port, () => {});
 
 app.use(cors())
+
 app.use(express.static(path.join(__dirname,"client")));
 
 app.use(bodyParser.json())
@@ -24,7 +25,7 @@ app.post("/server", (req, res) => {
 let io = require("socket.io").listen(server);
 
 io.on("connection", (socket) => {
-    socket.on("command", (data) => {
+    socket.on("command",function (data) {
       io.emit("command", data);
     });
-  });
+});
